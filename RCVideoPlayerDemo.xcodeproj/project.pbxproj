@@ -18,6 +18,16 @@
 		51C62943261B185C007425B9 /* RCVideoPlayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 51C6293B261B185C007425B9 /* RCVideoPlayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		51C6294C261B1B1B007425B9 /* RCVideoPlayerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 51C6294A261B1B1B007425B9 /* RCVideoPlayerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		51C6294D261B1B1B007425B9 /* RCVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C6294B261B1B1B007425B9 /* RCVideoPlayerView.m */; };
+		51D2080C261C9A810045C47C /* RCVideoDisplayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 51D2080A261C9A810045C47C /* RCVideoDisplayView.h */; };
+		51D2080D261C9A810045C47C /* RCVideoDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D2080B261C9A810045C47C /* RCVideoDisplayView.m */; };
+		51D2081C261CA4BD0045C47C /* RCVideoPlayerPlayPauseButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 51D2081A261CA4BD0045C47C /* RCVideoPlayerPlayPauseButton.h */; };
+		51D2081D261CA4BD0045C47C /* RCVideoPlayerPlayPauseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D2081B261CA4BD0045C47C /* RCVideoPlayerPlayPauseButton.m */; };
+		51D38F8C261EDB3200B89A0D /* Movie.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 51D38F8B261EDB3200B89A0D /* Movie.m4v */; };
+		51D38F90261F03EA00B89A0D /* RCVideoPlayerTimeLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 51D38F8E261F03EA00B89A0D /* RCVideoPlayerTimeLabel.h */; };
+		51D38F91261F03EA00B89A0D /* RCVideoPlayerTimeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D38F8F261F03EA00B89A0D /* RCVideoPlayerTimeLabel.m */; };
+		51F296BF261D9FA30091E118 /* RCVideoPlayerSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 51F296BD261D9FA30091E118 /* RCVideoPlayerSlider.h */; };
+		51F296C0261D9FA30091E118 /* RCVideoPlayerSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F296BE261D9FA30091E118 /* RCVideoPlayerSlider.m */; };
+		51F296C9261DE2F40091E118 /* Movie.mov in Resources */ = {isa = PBXBuildFile; fileRef = 51F296C8261DE2F40091E118 /* Movie.mov */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +71,16 @@
 		51C6293E261B185C007425B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51C6294A261B1B1B007425B9 /* RCVideoPlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCVideoPlayerView.h; sourceTree = "<group>"; };
 		51C6294B261B1B1B007425B9 /* RCVideoPlayerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCVideoPlayerView.m; sourceTree = "<group>"; };
+		51D2080A261C9A810045C47C /* RCVideoDisplayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCVideoDisplayView.h; sourceTree = "<group>"; };
+		51D2080B261C9A810045C47C /* RCVideoDisplayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCVideoDisplayView.m; sourceTree = "<group>"; };
+		51D2081A261CA4BD0045C47C /* RCVideoPlayerPlayPauseButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCVideoPlayerPlayPauseButton.h; sourceTree = "<group>"; };
+		51D2081B261CA4BD0045C47C /* RCVideoPlayerPlayPauseButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCVideoPlayerPlayPauseButton.m; sourceTree = "<group>"; };
+		51D38F8B261EDB3200B89A0D /* Movie.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = Movie.m4v; sourceTree = "<group>"; };
+		51D38F8E261F03EA00B89A0D /* RCVideoPlayerTimeLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCVideoPlayerTimeLabel.h; sourceTree = "<group>"; };
+		51D38F8F261F03EA00B89A0D /* RCVideoPlayerTimeLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCVideoPlayerTimeLabel.m; sourceTree = "<group>"; };
+		51F296BD261D9FA30091E118 /* RCVideoPlayerSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCVideoPlayerSlider.h; sourceTree = "<group>"; };
+		51F296BE261D9FA30091E118 /* RCVideoPlayerSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCVideoPlayerSlider.m; sourceTree = "<group>"; };
+		51F296C8261DE2F40091E118 /* Movie.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = Movie.mov; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +134,8 @@
 				51C6292A261B1824007425B9 /* LaunchScreen.storyboard */,
 				51C6292D261B1824007425B9 /* Info.plist */,
 				51C6292E261B1824007425B9 /* main.m */,
+				51D38F8B261EDB3200B89A0D /* Movie.m4v */,
+				51F296C8261DE2F40091E118 /* Movie.mov */,
 			);
 			path = RCVideoPlayerDemo;
 			sourceTree = "<group>";
@@ -121,11 +143,35 @@
 		51C6293C261B185C007425B9 /* RCVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				51D20814261CA3100045C47C /* Control */,
+				51D20803261C31CC0045C47C /* View */,
 				51C6293E261B185C007425B9 /* Info.plist */,
+			);
+			path = RCVideoPlayer;
+			sourceTree = "<group>";
+		};
+		51D20803261C31CC0045C47C /* View */ = {
+			isa = PBXGroup;
+			children = (
 				51C6294A261B1B1B007425B9 /* RCVideoPlayerView.h */,
 				51C6294B261B1B1B007425B9 /* RCVideoPlayerView.m */,
 			);
-			path = RCVideoPlayer;
+			path = View;
+			sourceTree = "<group>";
+		};
+		51D20814261CA3100045C47C /* Control */ = {
+			isa = PBXGroup;
+			children = (
+				51D2081A261CA4BD0045C47C /* RCVideoPlayerPlayPauseButton.h */,
+				51D2081B261CA4BD0045C47C /* RCVideoPlayerPlayPauseButton.m */,
+				51F296BD261D9FA30091E118 /* RCVideoPlayerSlider.h */,
+				51F296BE261D9FA30091E118 /* RCVideoPlayerSlider.m */,
+				51D38F8E261F03EA00B89A0D /* RCVideoPlayerTimeLabel.h */,
+				51D38F8F261F03EA00B89A0D /* RCVideoPlayerTimeLabel.m */,
+				51D2080A261C9A810045C47C /* RCVideoDisplayView.h */,
+				51D2080B261C9A810045C47C /* RCVideoDisplayView.m */,
+			);
+			path = Control;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,6 +181,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51D38F90261F03EA00B89A0D /* RCVideoPlayerTimeLabel.h in Headers */,
+				51D2080C261C9A810045C47C /* RCVideoDisplayView.h in Headers */,
+				51F296BF261D9FA30091E118 /* RCVideoPlayerSlider.h in Headers */,
+				51D2081C261CA4BD0045C47C /* RCVideoPlayerPlayPauseButton.h in Headers */,
 				51C6294C261B1B1B007425B9 /* RCVideoPlayerView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,7 +272,9 @@
 			files = (
 				51C6292C261B1824007425B9 /* LaunchScreen.storyboard in Resources */,
 				51C62929261B1824007425B9 /* Assets.xcassets in Resources */,
+				51F296C9261DE2F40091E118 /* Movie.mov in Resources */,
 				51C62927261B1822007425B9 /* Main.storyboard in Resources */,
+				51D38F8C261EDB3200B89A0D /* Movie.m4v in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,7 +303,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51D38F91261F03EA00B89A0D /* RCVideoPlayerTimeLabel.m in Sources */,
 				51C6294D261B1B1B007425B9 /* RCVideoPlayerView.m in Sources */,
+				51D2080D261C9A810045C47C /* RCVideoDisplayView.m in Sources */,
+				51D2081D261CA4BD0045C47C /* RCVideoPlayerPlayPauseButton.m in Sources */,
+				51F296C0261D9FA30091E118 /* RCVideoPlayerSlider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
