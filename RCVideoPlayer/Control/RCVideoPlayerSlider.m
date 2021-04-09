@@ -11,6 +11,8 @@
 @interface RCVideoPlayerSlider ()
 /** 时间观察者token */
 @property (nonatomic, strong) id timeObserverToken;
+/** 是否应该停止为匹配当前时长的value更新，为了避免和拖动冲突 */
+@property (nonatomic, assign) BOOL shouldStopUpdateValueForCurrentTime;
 @end
 
 @implementation RCVideoPlayerSlider
@@ -22,6 +24,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame player:(AVPlayer *)player {
     if (self = [super initWithFrame:frame]) {
+        _shouldStopUpdateValueForCurrentTime = NO;
         _player = player;
         
         [self addTarget:self action:@selector(onValueChanged:forEvent:) forControlEvents:UIControlEventValueChanged];
@@ -40,9 +43,12 @@
     UITouch *touch = touches.firstObject;
     if (touch.phase == UITouchPhaseEnded) {
         [self playerSeekToTimeWithValue:slider.value];
+        self.shouldStopUpdateValueForCurrentTime = NO;
         NSLog(@"ended value = %f", slider.value);
     } else if (touch.phase == UITouchPhaseMoved) {
         NSLog(@"moved value = %f", slider.value);
+    } else if (touch.phase == UITouchPhaseBegan) {
+        self.shouldStopUpdateValueForCurrentTime = YES;
     }
 }
 
@@ -56,6 +62,9 @@
 - (void)addObservers {
     __weak typeof(self) weakSelf = self;
     _timeObserverToken = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, NSEC_PER_SEC) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+        if (weakSelf.shouldStopUpdateValueForCurrentTime) {
+            return;
+        }
         CGFloat currentTime = CMTimeGetSeconds(time);
         CGFloat duration = CMTimeGetSeconds(weakSelf.player.currentItem.duration);
         CGFloat value = currentTime / duration;
