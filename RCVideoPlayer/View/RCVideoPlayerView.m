@@ -71,14 +71,14 @@
     return self;
 }
 
-/** 设置各个控件的frame（layoutSubviews会在首次显示时调用，“旋转+改frame”动画开始之前也会调用，所以为了动画效果不能在layoutSubviews中写修改frame的代码） */
+/** 设置各个控件的frame（layoutSubviews会在首次显示时调用或者修改父视图即self的frame时调用，“旋转+改frame”动画开始之前也会调用，所以为了动画效果不能在layoutSubviews中写修改子视图frame的代码） */
 - (void)setupSubviewsFrame {
     CGFloat width = CGRectGetWidth(self.bounds);
     CGFloat height = CGRectGetHeight(self.bounds);
     CGFloat marginH = 10; /**< 控件之间的水平间距 */
     CGFloat playMarginV = 20; /**< 播放按钮距离屏幕底部的垂直间距 */
     CGFloat speedMarginV = 0; /**< 倍速按钮距离屏幕底部的垂直间距 */
-    BOOL isFullScreen = !CGRectEqualToRect(self.frame, self.orginalFrame); /** 是否是全屏状态 */
+    BOOL isFullScreen = !CGRectEqualToRect(self.frame, self.orginalFrame); // 是否是全屏状态
     
     // 设置全屏和非全屏的区别
     if (isFullScreen) {
@@ -176,13 +176,16 @@
 /** 根据目标朝向进行旋转 */
 - (void)animateRotationWithTargetDeviceOrientation:(UIDeviceOrientation)orientation {
     if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight) {
-        [UIView animateWithDuration:0.25 animations:^{
-            if (orientation == UIDeviceOrientationLandscapeLeft) {
-                self.transform = CGAffineTransformMakeRotation(M_PI/2.0); // 变形之后frame失效
-            } else {
-                self.transform = CGAffineTransformMakeRotation(-M_PI/2.0);
-            }
-            
+        CGAffineTransform transform;
+        if (orientation == UIDeviceOrientationLandscapeLeft) {
+            transform = CGAffineTransformMakeRotation(M_PI/2.0); // 变形之后frame失效
+        } else {
+            transform = CGAffineTransformMakeRotation(-M_PI/2.0);
+        }
+        BOOL isFullScreen = !CGRectEqualToRect(self.frame, self.orginalFrame); // 是否是全屏状态
+        NSTimeInterval duration = isFullScreen?0.5:0.25; // 旋转180度的时间是90度的两倍，否则动画太快
+        [UIView animateWithDuration:duration animations:^{
+            self.transform = transform;
             self.bounds = CGRectMake(0, 0, CGRectGetHeight([UIScreen mainScreen].bounds), CGRectGetWidth([UIScreen mainScreen].bounds));
             self.center = CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2.0, CGRectGetHeight([UIScreen mainScreen].bounds)/2.0);
             
