@@ -11,7 +11,7 @@
 #import "RCVideoPlayerPlayPauseButton.h"
 #import "RCVideoPlayerSlider.h"
 #import "RCVideoPlayerTimeLabel.h"
-#import "RCVideoPlayerSpeedButton.h"
+#import "RCVideoPlayerRateButton.h"
 #import "RCVideoPlayerStatusBarView.h"
 
 
@@ -27,7 +27,7 @@
 #pragma mark - 初始化 与 生命周期
 - (void)dealloc {
     NSLog(@"%@ %@", [self class], NSStringFromSelector(_cmd));
-    [self removeOrientaionNotificationObserver];
+    [self removeObservers];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame URL:(NSURL *)URL containerViewController:(nonnull UIViewController *)containerViewController {
@@ -57,8 +57,8 @@
         [self.fullScreenButton addTarget:self action:@selector(onFullScreenButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.fullScreenButton];
         
-        _speedButton = [[RCVideoPlayerSpeedButton alloc] initWithFrame:CGRectZero player:self.player];
-        [self addSubview:self.speedButton];
+        _rateButton = [[RCVideoPlayerRateButton alloc] initWithFrame:CGRectZero player:self.player];
+        [self addSubview:self.rateButton];
         
         _statusBarView = [[RCVideoPlayerStatusBarView alloc] initWithFrame:CGRectZero];
         [self addSubview:self.statusBarView];
@@ -66,7 +66,7 @@
         
         [self setupSubviewsFrame];
         
-        [self addOrientaionNotificationObserver];
+        [self addObservers];
     }
     return self;
 }
@@ -77,19 +77,19 @@
     CGFloat height = CGRectGetHeight(self.bounds);
     CGFloat marginH = 10; /**< 控件之间的水平间距 */
     CGFloat playMarginV = 20; /**< 播放按钮距离屏幕底部的垂直间距 */
-    CGFloat speedMarginV = 0; /**< 倍速按钮距离屏幕底部的垂直间距 */
+    CGFloat rateMarginV = 0; /**< 倍速按钮距离屏幕底部的垂直间距 */
     BOOL isFullScreen = !CGRectEqualToRect(self.frame, self.orginalFrame); // 是否是全屏状态
     
     // 设置全屏和非全屏的区别
     if (isFullScreen) {
         playMarginV = 60;
-        speedMarginV = 20;
-        self.speedButton.hidden = NO;
+        rateMarginV = 20;
+        self.rateButton.hidden = NO;
         self.statusBarView.hidden = NO;
     } else {
         playMarginV = 20;
-        speedMarginV = 0;
-        self.speedButton.hidden = YES;
+        rateMarginV = 0;
+        self.rateButton.hidden = YES;
         self.statusBarView.hidden = YES;
     }
     
@@ -115,11 +115,22 @@
     CGFloat sliderHeight = 10;
     self.progressSlider.frame = CGRectMake(sliderX, CGRectGetMidY(self.playPauseButton.frame)-sliderHeight/2.0, CGRectGetMinX(self.durationLabel.frame)-sliderX-marginH, sliderHeight);
     
-    CGFloat speedWidth = 40;
-    CGFloat speedHeight = 20;
-    self.speedButton.frame = CGRectMake(width-marginH-speedWidth, height-speedMarginV-speedHeight, speedWidth, speedHeight);
+    CGFloat rateWidth = 40;
+    CGFloat rateHeight = 20;
+    self.rateButton.frame = CGRectMake(width-marginH-rateWidth, height-rateMarginV-rateHeight, rateWidth, rateHeight);
     
     self.statusBarView.frame = CGRectMake(0, 0, width, 20);
+}
+
+#pragma mark - 观察者
+- (void)addObservers {
+    [self addOrientaionNotificationObserver];
+    [self addRateButtonObserver];
+}
+
+- (void)removeObservers {
+    [self removeOrientaionNotificationObserver];
+    [self removeRateButtonObserver];
 }
 
 #pragma mark - 公开方法
@@ -178,9 +189,9 @@
     if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight) {
         CGAffineTransform transform;
         if (orientation == UIDeviceOrientationLandscapeLeft) {
-            transform = CGAffineTransformMakeRotation(M_PI/2.0); // 变形之后frame失效
+            transform = CGAffineTransformMakeRotation(M_PI_2); // 变形之后frame失效
         } else {
-            transform = CGAffineTransformMakeRotation(-M_PI/2.0);
+            transform = CGAffineTransformMakeRotation(-M_PI_2);
         }
         BOOL isFullScreen = !CGRectEqualToRect(self.frame, self.orginalFrame); // 是否是全屏状态
         NSTimeInterval duration = isFullScreen?0.5:0.25; // 旋转180度的时间是90度的两倍，否则动画太快
@@ -206,6 +217,21 @@
                 [self.containerViewController setNeedsStatusBarAppearanceUpdate];
             }
         }];
+    }
+}
+
+#pragma mark - 倍速相关
+- (void)addRateButtonObserver {
+    [self.rateButton addObserver:self forKeyPath:@"rate" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)removeRateButtonObserver {
+    [self.rateButton removeObserver:self forKeyPath:@"rate" context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (object == self.rateButton && [keyPath isEqualToString:@"rate"]) {
+        self.playPauseButton.rate = self.rateButton.rate;
     }
 }
 

@@ -12,7 +12,7 @@
 @class RCVideoPlayerPlayPauseButton;
 @class RCVideoPlayerSlider;
 @class RCVideoPlayerTimeLabel;
-@class RCVideoPlayerSpeedButton;
+@class RCVideoPlayerRateButton;
 @class RCVideoPlayerStatusBarView;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** 全屏按钮 */
 @property (nonatomic, strong, readonly) UIButton *fullScreenButton;
 /** 倍速按钮 */
-@property (nonatomic, strong, readonly) RCVideoPlayerSpeedButton *speedButton;
+@property (nonatomic, strong, readonly) RCVideoPlayerRateButton *rateButton;
 /** 自定制的状态栏 */
 @property (nonatomic, strong, readonly) RCVideoPlayerStatusBarView *statusBarView;
 

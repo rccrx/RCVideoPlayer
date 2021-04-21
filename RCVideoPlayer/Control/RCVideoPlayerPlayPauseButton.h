@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** 播放器 */
 @property (nonatomic, strong, readonly) AVPlayer *player;
 
+/** 倍速速率，支持0-2.0，其他速率效果不确定，默认为1.0 */
+@property (nonatomic, assign) float rate;
+
 
 /** 创建播放暂停按钮 */
 - (instancetype)initWithFrame:(CGRect)frame player:(AVPlayer *)player;

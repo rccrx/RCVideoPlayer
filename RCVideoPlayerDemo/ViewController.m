@@ -47,7 +47,7 @@
 //    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Movie" withExtension:@"m4v"];
 //    NSURL *url = [NSURL URLWithString:@"http://k6.kekenet.com/Sound/2019/07/angke11.mp4"];
     NSURL *url = [NSURL URLWithString:@"https://vd2.bdstatic.com/mda-jk1daq6ynn4gak8d/mda-jk1daq6ynn4gak8d.mp4"]; // HTTP的URL会完全下载完视频之后，才会在AVPlayerLayer显示，才可以开始播放
-    RCVideoPlayerView *playerView = [[RCVideoPlayerView alloc] initWithFrame:CGRectMake(0, 100, CGRectGetWidth(self.view.frame), CGRectGetWidth(self.view.frame)/16.0*9.0) URL:url containerViewController:self];
+    RCVideoPlayerView *playerView = [[RCVideoPlayerView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetWidth(self.view.frame)/16.0*9.0) URL:url containerViewController:self];
     [playerView setupPlayPauseButtonWithPlayImage:[UIImage imageNamed:@"play"] pauseImage:[UIImage imageNamed:@"pause"]];
     [playerView setupProgressSliderWithNormalThumbImage:[UIImage imageNamed:@"thumb-normal"] highlightedThumbImage:[UIImage imageNamed:@"thumb-highlighted"] minimumTrackImage:[UIImage imageNamed:@"track"]];
     [playerView setupFullScreenButtonWithImage:[UIImage imageNamed:@"full-screen"]];
@@ -62,8 +62,28 @@
     progressView.progressImage = [UIImage imageNamed:@"track"];
     [self.view addSubview:progressView];
     
+    UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake(50, 550, 100, 50)];
+    [button1 setTitle:@"测试1" forState:UIControlStateNormal];
+    button1.backgroundColor = [UIColor blueColor];
+    [button1 addTarget:self action:@selector(button1Clicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button1];
+    
+    UIButton *button2 = [[UIButton alloc] initWithFrame:CGRectMake(250, 550, 100, 50)];
+    [button2 setTitle:@"测试2" forState:UIControlStateNormal];
+    button2.backgroundColor = [UIColor blueColor];
+    [button2 addTarget:self action:@selector(button2Clicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button2];
+    
     
     [self.view addSubview:self.playerView];
+}
+
+- (void)button1Clicked:(UIButton *)button {
+    [self presentViewController:[ViewController new] animated:YES completion:nil];
+}
+
+- (void)button2Clicked:(UIButton *)button {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

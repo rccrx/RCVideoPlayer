@@ -1,17 +1,23 @@
 //
-//  RCVideoPlayerSpeedButton.m
+//  RCVideoPlayerRateButton.m
 //  RCVideoPlayer
 //
-//  Created by crx on 2021/4/13.
+//  Created by crx on 2021/4/15.
 //
 
-#import "RCVideoPlayerSpeedButton.h"
+#import "RCVideoPlayerRateButton.h"
 #import <AVFoundation/AVFoundation.h>
 
-@implementation RCVideoPlayerSpeedButton
+
+@interface RCVideoPlayerRateButton ()
+
+@end
+
+@implementation RCVideoPlayerRateButton
 
 - (instancetype)initWithFrame:(CGRect)frame player:(AVPlayer *)player {
     if (self = [super initWithFrame:frame]) {
+        _rate = 1.0;
         _player = player;
         
         
@@ -25,6 +31,15 @@
 }
 
 - (void)onClicked:(UIButton *)button {
+    NSString *title = self.titleLabel.text;
+    CGFloat rate = title.floatValue;
+    int tempRate = rate==0? 1 : (int)(rate*2);
+    tempRate = (tempRate + 1) % 6;
+    rate = (tempRate?:1) / 2.0;
+    
+    [button setTitle:[NSString stringWithFormat:@"%.1f", rate] forState:UIControlStateNormal];
+    
+    [self setValue:[NSNumber numberWithFloat:rate] forKey:@"rate"]; // 为了KVC可以监测到变化
 }
 
 @end
