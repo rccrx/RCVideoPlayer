@@ -39,7 +39,7 @@
     
     [button setTitle:[NSString stringWithFormat:@"%.1f", rate] forState:UIControlStateNormal];
     
-    [self setValue:[NSNumber numberWithFloat:rate] forKey:@"rate"]; // 为了KVC可以监测到变化
+    [self setValue:[NSNumber numberWithFloat:rate] forKey:@"rate"]; // 为了KVO可以监测到变化
 }
 
 @end

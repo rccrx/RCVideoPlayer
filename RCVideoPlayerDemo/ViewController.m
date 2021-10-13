@@ -17,12 +17,10 @@
 
 #pragma mark - 全屏——旋转相关方法
 - (BOOL)shouldAutorotate {
-    NSLog(@"%@ %@: device orientation = %ld", [self class], NSStringFromSelector(_cmd), [UIDevice currentDevice].orientation);
     return [self.playerView shouldAutorotate];
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    NSLog(@"%@ %@", [self class], NSStringFromSelector(_cmd));
     return [self.playerView supportedInterfaceOrientations];
 }
 
@@ -40,13 +38,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSLog(@"%@ %@", [self class], NSStringFromSelector(_cmd));
     self.view.backgroundColor = [UIColor whiteColor];
     
 //    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Movie" withExtension:@"mov"];
 //    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Movie" withExtension:@"m4v"];
 //    NSURL *url = [NSURL URLWithString:@"http://k6.kekenet.com/Sound/2019/07/angke11.mp4"];
-    NSURL *url = [NSURL URLWithString:@"https://vd2.bdstatic.com/mda-jk1daq6ynn4gak8d/mda-jk1daq6ynn4gak8d.mp4"]; // HTTP的URL会完全下载完视频之后，才会在AVPlayerLayer显示，才可以开始播放
+//    NSURL *url = [NSURL URLWithString:@"https://vd2.bdstatic.com/mda-jk1daq6ynn4gak8d/mda-jk1daq6ynn4gak8d.mp4"]; // HTTP的URL会完全下载完视频之后，才会在AVPlayerLayer显示，才可以开始播放
+//    NSURL *url = [NSURL URLWithString:@"https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_adv_example_hevc/master.m3u8"];
+//    NSURL *url = [NSURL URLWithString:@"crx://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_adv_example_hevc/master.m3u8"];
+    NSURL *url = [NSURL URLWithString:@"crx://k6.kekenet.com/Sound/2019/07/angke11.mp4"];
+//    NSURL *url = [NSURL URLWithString:@"cplp://devimages.apple.com/samplecode/AVARLDelegateDemo/BipBop_gear3_segmented/redirect_prog_index.m3u8"];
     RCVideoPlayerView *playerView = [[RCVideoPlayerView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetWidth(self.view.frame)/16.0*9.0) URL:url containerViewController:self];
     [playerView setupPlayPauseButtonWithPlayImage:[UIImage imageNamed:@"play"] pauseImage:[UIImage imageNamed:@"pause"]];
     [playerView setupProgressSliderWithNormalThumbImage:[UIImage imageNamed:@"thumb-normal"] highlightedThumbImage:[UIImage imageNamed:@"thumb-highlighted"] minimumTrackImage:[UIImage imageNamed:@"track"]];

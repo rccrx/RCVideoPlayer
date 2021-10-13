@@ -13,6 +13,7 @@
 #import "RCVideoPlayerTimeLabel.h"
 #import "RCVideoPlayerRateButton.h"
 #import "RCVideoPlayerStatusBarView.h"
+#import "RCAVAResourceLoaderDelegate.h"
 
 
 @interface RCVideoPlayerView ()
@@ -20,6 +21,8 @@
 @property (nonatomic, assign) CGRect orginalFrame;
 /** 显示这个播放器的视图控制器 */
 @property (nonatomic, weak) UIViewController *containerViewController;
+/** 控制边下载边播放的代理（必须强引用，否则代理对象被销毁就无法调用代理方法） */
+@property (nonatomic, strong) RCAVAResourceLoaderDelegate *delegate;
 @end
 
 @implementation RCVideoPlayerView
@@ -36,6 +39,11 @@
         _player = [AVPlayer playerWithURL:URL];
         _containerViewController = containerViewController;
         self.backgroundColor = [UIColor blackColor];
+        
+        // 设置边下边播的代理
+        _delegate = [RCAVAResourceLoaderDelegate new];
+        AVURLAsset *urlAsset = (AVURLAsset *)self.player.currentItem.asset;
+        [urlAsset.resourceLoader setDelegate:self.delegate queue:dispatch_get_main_queue()];
         
         
         _displayView = [[RCVideoDisplayView alloc] initWithFrame:CGRectZero player:self.player];
@@ -71,7 +79,7 @@
     return self;
 }
 
-/** 设置各个控件的frame（layoutSubviews会在首次显示时调用或者修改父视图即self的frame时调用，“旋转+改frame”动画开始之前也会调用，所以为了动画效果不能在layoutSubviews中写修改子视图frame的代码） */
+/** 设置各个控件的frame（layoutSubviews会在首次显示时调用或者修改父视图即self的大小时调用，“旋转+改frame”动画开始之前也会调用，所以为了动画效果不能在layoutSubviews中写修改子视图frame的代码） */
 - (void)setupSubviewsFrame {
     CGFloat width = CGRectGetWidth(self.bounds);
     CGFloat height = CGRectGetHeight(self.bounds);
